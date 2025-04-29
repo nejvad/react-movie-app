@@ -1,9 +1,24 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Search from './components/Search'
+
+const API_BASE_URL = "https://api.themoviedb.org/3";
+const API_KEY = import.meta.env.VITE_TMDB_KEY;
+const API_OPTIONS = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    Authorization: `Bearer ${API_KEY}`
+  }
+}
+
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+
+  }, []);
 
   return (
     <main>
