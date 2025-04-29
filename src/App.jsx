@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import Search from './components/Search'
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
-const API_KEY = import.meta.env.VITE_TMDB_KEY;
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const API_OPTIONS = {
   method: "GET",
   headers: {
@@ -19,15 +19,22 @@ const App = () => {
 
   const fetchMovies = async () => {
     try {
+      const endpoint = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+      const response = await fetch(endpoint, API_OPTIONS)
+      if(!response.ok) {
+        throw new Error("Failed to fetch movies");
+      }
 
+      const data = await response.json();
+      console.log(data)
     } catch(e) {
-      console.error(`Error fetching movies: ${error}`)
+      console.error(`Error fetching movies: ${e}`)
       setErrorMessage("Error fetching movies, please try again.");
     }
   }
 
   useEffect(() => {
-
+    fetchMovies();
   }, []);
 
   return (
@@ -37,9 +44,9 @@ const App = () => {
         <header>
           <img src="./hero.png" alt="Hero Banner"/>
           <h1>Find <span className='text-gradient'>Movies</span> You'll Enjoy Without the Hassle</h1>
+          <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} /> 
         </header>
 
-        <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} /> 
         <section className='all-movies'>
           <h2>All Movies</h2>
           {errorMessage && <p className="text-red-500">{errorMessage}</p>}
