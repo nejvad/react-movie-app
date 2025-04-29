@@ -15,6 +15,16 @@ const API_OPTIONS = {
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const fetchMovies = async () => {
+    try {
+
+    } catch(e) {
+      console.error(`Error fetching movies: ${error}`)
+      setErrorMessage("Error fetching movies, please try again.");
+    }
+  }
 
   useEffect(() => {
 
@@ -30,6 +40,10 @@ const App = () => {
         </header>
 
         <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} /> 
+        <section className='all-movies'>
+          <h2>All Movies</h2>
+          {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+        </section>
       </div>
     </main>
   )
