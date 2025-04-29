@@ -65,13 +65,13 @@ const App = () => {
         <section className='all-movies'>
           <h2 className="mt-[40pt]">All Movies</h2>
           {isLoading ? (
-            <Spinner/>
+            <Spinner />
           ): errorMessage ? (
             <p className="text-red-500">{errorMessage}</p>
           ): 
             <ul>
               {movies.map((movie) => (
-                <MovieCard key={movie.id} movie={movie}/>
+                <MovieCard key={movie.id} movie={movie} />
               ))}
             </ul>
           }
